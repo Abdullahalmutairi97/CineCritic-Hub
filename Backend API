@@ -1,0 +1,76 @@
+// server.js
+const express = require('express');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const app = express();
+app.use(express.json());
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/cinecritic', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+// Movie Model
+const Movie = mongoose.model('Movie', {
+    title: String,
+    genres: [String],
+    director: String,
+    cast: [String],
+    releaseYear: Number,
+    duration: Number,
+    synopsis: String,
+    posterUrl: String
+});
+
+// Get top-rated movies
+app.get('/api/movies/top-rated', async (req, res) => {
+    try {
+        const movies = await Movie.aggregate([
+            { $match: { avgRating: { $gte: 4 } } },
+            { $sort: { avgRating: -1 } },
+            { $limit: 10 }
+        ]);
+        res.json(movies);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Submit a review
+app.post('/api/reviews', authenticateToken, async (req, res) => {
+    const review = new Review({
+        movieId: req.body.movieId,
+        userId: req.user.id,
+        rating: req.body.rating,
+        content: req.body.content,
+        containsSpoilers: req.body.containsSpoilers || false
+    });
+
+    try {
+        const savedReview = await review.save();
+        
+        // Update movie's average rating
+        await Movie.updateAvgRating(req.body.movieId);
+        
+        res.status(201).json(savedReview);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Authentication middleware
+function authenticateToken(req, res, next) {
+    const token = req.header('Authorization')?.split(' ')[1];
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+}
+
+app.listen(3000, () => console.log('Server running on port 3000'));
