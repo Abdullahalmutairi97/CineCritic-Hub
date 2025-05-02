@@ -1,9 +1,5 @@
 # 🎬 CineCritic Hub - Movie Review Platform
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI/CD Pipeline](https://github.com/yourusername/cinecritic-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/yourusername/cinecritic-hub/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/yourusername/cinecritic-hub/branch/main/graph/badge.svg?token=YOUR_TOKEN)](https://codecov.io/gh/yourusername/cinecritic-hub)
-
 A full-stack web application for movie enthusiasts to discover, review, and discuss films with both casual viewers and professional critics.
 
 ## ✨ Features
