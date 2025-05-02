@@ -45,4 +45,24 @@ A full-stack web application for movie enthusiasts to discover, review, and disc
 - NGINX reverse proxy
 
 
-
+```python
+cinecritic-hub/
+├── client/               # Frontend React application
+│   ├── public/           # Static assets
+│   └── src/              # React components and pages
+│       ├── components/   # Reusable UI components
+│       ├── pages/        # Route-level components
+│       ├── store/        # Redux configuration
+│       └── styles/       # Global SCSS styles
+│
+├── server/               # Backend Express application
+│   ├── config/           # Database and auth config
+│   ├── controllers/      # Route controllers
+│   ├── middleware/       # Custom middleware
+│   ├── models/           # Mongoose models
+│   ├── routes/           # API routes
+│   └── utils/            # Helper functions
+│
+├── .github/              # GitHub workflows
+└── docs/                 # Project documentation
+```
