@@ -44,15 +44,25 @@ A full-stack web application for movie enthusiasts to discover, review, and disc
 - AWS EC2 deployment
 - NGINX reverse proxy
 
-## 🚀 Getting Started
 
-### Prerequisites
-- Node.js v16+
-- MongoDB Atlas account or local instance
-- npm/yarn
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/cinecritic-hub.git
-   cd cinecritic-hub
+
+cinecritic-hub/
+├── client/               # Frontend React application
+│   ├── public/           # Static assets
+│   └── src/              # React components and pages
+│       ├── components/   # Reusable UI components
+│       ├── pages/        # Route-level components
+│       ├── store/        # Redux configuration
+│       └── styles/       # Global SCSS styles
+│
+├── server/               # Backend Express application
+│   ├── config/           # Database and auth config
+│   ├── controllers/      # Route controllers
+│   ├── middleware/       # Custom middleware
+│   ├── models/           # Mongoose models
+│   ├── routes/           # API routes
+│   └── utils/            # Helper functions
+│
+├── .github/              # GitHub workflows
+└── docs/                 # Project documentation
